@@ -1,6 +1,6 @@
 var app = angular.module('listaUsuarios', []);  
 
-app.controller("listaCtrl", function($scope) {  
+app.controller("listaCtrl", function($scope, $http) {
     
 
     /*
@@ -14,26 +14,26 @@ app.controller("listaCtrl", function($scope) {
 	*/
     
     // Cuando se cargue la página, pide del API todos los TODOs
-    $http.get('/api/usuarios')
+    $http.get('http://localhost:2709/api/todos')
         .success(function(data) {
             $scope.users = data;
-            console.log(users)
+
         })
         .error(function(data) {
             console.log('Error: ' + data);
         });
 
-    /*
+
     // Cuando se añade un nuevo TODO, manda el texto a la API
-    $scope.createTodo = function(){
-        $http.post('/api/todos', $scope.formData)
+    $scope.createTodo = function(user){
+        $http.post('http://localhost:2709/api/todos', user)
             .success(function(data) {
-                $scope.formData = {};
-                $scope.todos = data;
-                console.log(data);
+                user = {};
+                $scope.users = data;
+
             })
             .error(function(data) {
-                console.log('Error:' + data);
+
             });
     };
 
@@ -48,5 +48,5 @@ app.controller("listaCtrl", function($scope) {
                 console.log('Error:' + data);
             });
     };
-    */
+
 });

@@ -22,19 +22,33 @@
                     <td>{{user.Nombre}}</td>
                     <td>{{user.Apellido}}</td>
                     <td>{{user.email}}</td>
-                    <td><p ng-repeat="idioma in user.idiomas">{{idioma}}</td>                    
+                    <td>{{user.idiomas}}</td>
+                    <!--<td><p ng-repeat="idioma in user.idiomas">{{idioma}}</td>    -->
                 </tr>
             </table>
             <form class="simple-form">
                 <div class="form-group">
                     <label for="user-name">Name</label>
-                    <input type="text" class="form-control" id="user-name" placeholder="Nombre" ng-model="user.name">
+                    <input type="text" class="form-control" id="user-name" placeholder="Nombre" ng-model="user.Nombre">
+                </div>
+                <div class="form-group">
+                    <label for="user-lastname">Apellido</label>
+                    <input type="text" class="form-control" id="user-lastname" placeholder="Apellido" ng-model="user.Apellido">
+                </div>
+                <div class="form-group">
+                    <label for="user-alumno_id">Alumno_id</label>
+                    <input type="text" class="form-control" id="user-alumno_id" placeholder="alumno_id" ng-model="user.alumno_id">
+                </div>
+                <div class="form-group">
+                    <label for="user-idiomas">Idiomas</label>
+                    <input type="text" class="form-control" id="user-idiomas" placeholder="idiomas" ng-model="user.idiomas">
                 </div>
                 <div class="form-group">
                     <label for="user-email">Email</label>
                     <input type="text" class="form-control" id="user-email" placeholder="Email" ng-model="user.email">
-                </div>              
-                <input type="submit" ng-click="addUser(user)" value="Add user" class="btn btn-default">
+                </div>
+
+                <input type="submit" ng-click="createTodo(user)" value="Add user" class="btn btn-default">
             </form>
             
         </div>
