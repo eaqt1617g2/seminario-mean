@@ -1,7 +1,6 @@
 /**
  * Created by Jordi on 27/09/2016.
  */
-//server.js
 
 var express     = require('express');
 var app         = express();
@@ -18,116 +17,69 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 
 // Conexión con la base de datos
-mongoose.connect('mongodb://localhost:27017/test');
-
-// Configuración
-/*app.configure(function() {
-    // Localización de los ficheros estáticos
-    app.use(express.static(__dirname + '/public'));
-    // Muestra un log de todos los request en la consola
-    app.use(express.logger('dev'));
-    // Permite cambiar el HTML con el método POST
-    app.use(express.bodyParser());
-    // Simula DELETE y PUT
-    app.use(express.methodOverride());
-});*/
+mongoose.connect('mongodb://localhost:27017/users-seminario');
 
 
-// Definición de modelos
-/*var Todo = mongoose.model('grupo2', {
-var Schema = mongoose.Schema
-var Todo = new Schema({
-    Nombre: {type: String},
-    Apellido: {type: String},
-    alumno_id: {type: String}
-});
-
- var  TodoModel = mongoose.model('grupo2',Todo);
-
-*/
-// Definición de modelos
-var Todo = mongoose.model('grupo2', {
-    Nombre: String,
-    Apellido: String,
+var UserModel = mongoose.model('users', {
+    nombre: String,
+    apellido: String,
     alumno_id: String,
-    email: String,
-    idiomas: String
+    email: String    
 });
 
 
-
-// Rutas de nuestro API
-// GET de todos los TODOs
-app.get('/api/todos', function(req, res) {
-    Todo.find(function(err, todos) {
+app.get('/api/users', function(req, res) {
+    UserModel.find(function(err, users) {
         if(err) {
             res.send(err);
         }
-        res.json(todos);
+        res.json(users);
     });
 });
 
-// POST que crea un TODO y devuelve todos tras la creación
-app.post('/api/todos', function(req, res) {
-    Todo.create({
-        Nombre: req.body.Nombre,
-        Apellido: req.body.Apellido,
+
+app.post('/api/users', function(req, res) {
+    UserModel.create({
+        nombre: req.body.nombre,
+        apellido: req.body.apellido,
         alumno_id: req.body.alumno_id,
-        email: req.body.email,
-        idiomas: req.body.idiomas,
+        email: req.body.email,        
         done: false
-    }, function(err, todo){
+    }, function(err, user){
         if(err) {
             res.send(err);
         }
 
-        Todo.find(function(err, todos) {
+        UserModel.find(function(err, users) {
             if(err){
                 res.send(err);
             }
-            res.json(todos);
+            res.json(users);
         });
     });
 });
 
 
-/*app.post('/api/todos', function(req, res) {
-    var Todo = new TodoModel({
-        Nombre: req.body.Nombre,
-        Apellido: req.body.Apellido,
-        alumno_id: req.body.alumno_id
-    });
-        Todo.save(function(err, todo){
-        if(err) {
-            res.send(err);
-        }
-    });
-});*/
-
-// DELETE un TODO específico y devuelve todos tras borrarlo.
-app.delete('/api/todos/:todo', function(req, res) {
-    Todo.remove({
-        _id: req.params.todo
-    }, function(err, todo) {
+app.delete('/api/users/:user', function(req, res) {
+    UserModel.remove({
+        _id: req.params.user
+    }, function(err, user) {
         if(err){
             res.send(err);
         }
 
-        Todo.find(function(err, todos) {
+        UserModel.find(function(err, users) {
             if(err){
                 res.send(err);
             }
-            res.json(todos);
+            res.json(users);
         });
 
     })
 });
 
-// Carga una vista HTML simple donde irá nuestra Single App Page
-// Angular Manejará el Frontend
-app.get('*', function(req, res) {
-    res.sendfile('./public/index.html');
-});
+app.use('/', express.static('public'));
+app.use('/bower_components', express.static('bower_components'));
 
 // Escucha en el puerto 2709 y corre el server
 app.listen(2709, function() {

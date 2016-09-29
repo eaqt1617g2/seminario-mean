@@ -3,54 +3,55 @@
 
 <link href="../bower_components/bootstrap-css/css/bootstrap.min.css" rel="stylesheet">
 <body style="background-color:#ccccff;">
+<style>
+    td {
+        vertical-align: middle !important;
+    }
+</style>
 
-<div class="container">
-    <div class="panel panel-default col-md-8 col-md-offset-2" style="margin-top:50px; padding-bottom:20px;">        
-        <div ng-app="listaUsuarios" ng-controller="listaCtrl">  
-            <h1>Lista de usuarios</h1>
-            <hr>
+<div class="container  col-md-8 col-md-offset-2">
+    <div class="panel panel-default" style="margin-top:50px;">    
+        <div class="panel-heading"><h1>Lista de usuarios</h1></div>
+        <div class="panel-body">    
+        <div ng-app="listaUsuarios" ng-controller="listaCtrl">
             <table class="table table-bordered">
                 <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Apellido</th>  
-                    <th>E-mail</th>                                      
-                    <th>Idiomas</th>
+                    <th class="col-xs-1">ID</th>
+                    <th class="col-xs-3">Nombre</th>
+                    <th class="col-xs-3">Apellido</th>  
+                    <th class="col-xs-4">E-mail</th>
+                    <th class="col-xs-1">Acciones</th>
                 </tr>
                 <tr ng-repeat="user in users">
                     <td>{{user.alumno_id}}</td>
-                    <td>{{user.Nombre}}</td>
-                    <td>{{user.Apellido}}</td>
-                    <td>{{user.email}}</td>
-                    <td>{{user.idiomas}}</td>
+                    <td>{{user.nombre}}</td>
+                    <td>{{user.apellido}}</td>
+                    <td>{{user.email}}</td>                    
+                    <td><button type="button" class="btn btn-danger" ng-click="deleteUser(user._id)">Borrar</button></td>
                     <!--<td><p ng-repeat="idioma in user.idiomas">{{idioma}}</td>    -->
                 </tr>
             </table>
             <form class="simple-form">
+            <div class="form-group">
+                    <label for="user-alumno_id">ID</label>
+                    <input type="text" class="form-control" id="user-alumno_id" placeholder="Identificador" ng-model="user.alumno_id">
+                </div>
                 <div class="form-group">
                     <label for="user-name">Name</label>
-                    <input type="text" class="form-control" id="user-name" placeholder="Nombre" ng-model="user.Nombre">
+                    <input type="text" class="form-control" id="user-name" placeholder="Nombre" ng-model="user.nombre">
                 </div>
                 <div class="form-group">
                     <label for="user-lastname">Apellido</label>
-                    <input type="text" class="form-control" id="user-lastname" placeholder="Apellido" ng-model="user.Apellido">
-                </div>
-                <div class="form-group">
-                    <label for="user-alumno_id">Alumno_id</label>
-                    <input type="text" class="form-control" id="user-alumno_id" placeholder="alumno_id" ng-model="user.alumno_id">
-                </div>
-                <div class="form-group">
-                    <label for="user-idiomas">Idiomas</label>
-                    <input type="text" class="form-control" id="user-idiomas" placeholder="idiomas" ng-model="user.idiomas">
+                    <input type="text" class="form-control" id="user-lastname" placeholder="Apellido" ng-model="user.apellido">
                 </div>
                 <div class="form-group">
                     <label for="user-email">Email</label>
-                    <input type="text" class="form-control" id="user-email" placeholder="Email" ng-model="user.email">
+                    <input type="text" class="form-control" id="user-email" placeholder="Dirección de correo electrónico" ng-model="user.email">
                 </div>
 
-                <input type="submit" ng-click="createTodo(user)" value="Add user" class="btn btn-default">
-            </form>
-            
+                <input type="submit" ng-click="createUser(user)" value="Añadir usuario" class="btn btn-default">
+            </form>            
+        </div>
         </div>
     </div>
 </div>

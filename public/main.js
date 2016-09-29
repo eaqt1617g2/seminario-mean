@@ -2,19 +2,8 @@ var app = angular.module('listaUsuarios', []);
 
 app.controller("listaCtrl", function($scope, $http) {
     
-
-    /*
-    $scope.users = [
-		{name:'Carlos',email:'carlos@gmail.com', idiomas: ["castellano", "ingles"]},
-		{name:'Pepe',email:'pepe@gmail.com'},
-		{name:'Juan',email:'juan@gmail.com'},
-		{name:'Ana',email:'ana@gmail.com'},
-		{name:'Jordi',email:'jordi@gmail.com'}
-	];
-	*/
     
-    // Cuando se cargue la página, pide del API todos los TODOs
-    $http.get('http://localhost:2709/api/todos')
+    $http.get('http://localhost:2709/api/users')
         .success(function(data) {
             $scope.users = data;
 
@@ -24,9 +13,9 @@ app.controller("listaCtrl", function($scope, $http) {
         });
 
 
-    // Cuando se añade un nuevo TODO, manda el texto a la API
-    $scope.createTodo = function(user){
-        $http.post('http://localhost:2709/api/todos', user)
+   
+    $scope.createUser = function(user){
+        $http.post('http://localhost:2709/api/users', user)
             .success(function(data) {
                 user = {};
                 $scope.users = data;
@@ -37,12 +26,12 @@ app.controller("listaCtrl", function($scope, $http) {
             });
     };
 
-    // Borra un TODO despues de checkearlo como acabado
-    $scope.deleteTodo = function(id) {
-        $http.delete('/api/todos/' + id)
+    
+    $scope.deleteUser = function(id) {
+        $http.delete('/api/users/' + id)
             .success(function(data) {
-                $scope.todos = data;
-                console.log(data);
+                $scope.users = data;
+                console.log("Entrada borrada");
             })
             .error(function(data) {
                 console.log('Error:' + data);
